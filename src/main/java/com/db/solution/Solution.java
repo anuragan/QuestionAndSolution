@@ -57,7 +57,7 @@ public class Solution {
 
         //Dequeue null, as the queue is empty
         highestPriorityElement = priorityQueue.poll();
-        System.out.println("Polled element: " + highestPriorityElement);
+        System.out.println("Polled element with null value: " + highestPriorityElement);
     }
 
     private static void ledgerBalance() throws SQLException {
