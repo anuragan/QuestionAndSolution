@@ -16,17 +16,13 @@ public class PingPong implements Runnable {
             int j = 0;
             while (true) {
                 System.out.println(pingPong);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException expi) {
-                    expi.printStackTrace();
-                }
+
                 objThread.notify();
 
                 try {
                     objThread.wait(1000);
-                } catch (InterruptedException expo) {
-                    expo.printStackTrace();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
                 }
                 if (j == 2) {
                     break;

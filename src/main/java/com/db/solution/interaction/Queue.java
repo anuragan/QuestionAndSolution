@@ -1,18 +1,51 @@
 package com.db.solution.interaction;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
-public class Queue {
-    public static void addAndGetPoll() {
+public class Queue<E> {
+        private static final int DEFAULT_CAPACITY = 10;
+        private byte[] priorities;
+        private Object[] elements;
+        private int size;
 
-        PriorityQueue<String> queue = new PriorityQueue<>();
+        public Queue() {
+            priorities = new byte[DEFAULT_CAPACITY];
+            elements = new Object[DEFAULT_CAPACITY];
+        }
 
-        queue.add("Gold");
-        queue.add("Silver");
-        queue.add("Iron");
+        //add method with byte priority set
+        public void add(byte priority, E element) {
+            if (size == elements.length) {
+                resize();
+            }
+            int i = size;
+            while (i > 0 && priority > priorities[i - 1]) {
+                priorities[i] = priorities[i - 1];
+                elements[i] = elements[i - 1];
+                i--;
+            }
+            priorities[i] = priority;
+            elements[i] = element;
+            size++;
+        }
 
-        System.out.println("Initial PriorityQueue: " + queue);
+        private void resize() {
+            int newCapacity = elements.length * 2;
+            priorities = Arrays.copyOf(priorities, newCapacity);
+            elements = Arrays.copyOf(elements, newCapacity);
+        }
 
-        System.out.printf("The Top most Priority FIFO is :" + queue.poll());
+    public E poll() {
+        if (size == 0) {
+            return null;
+        }
+        E element = (E) elements[0];
+        for (int i = 1; i < size; i++) {
+            elements[i - 1] = elements[i];
+            priorities[i - 1] = priorities[i];
+        }
+        size--;
+        return element;
     }
+
 }

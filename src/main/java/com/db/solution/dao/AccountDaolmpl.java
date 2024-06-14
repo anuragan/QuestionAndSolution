@@ -11,8 +11,9 @@ public class AccountDaolmpl implements AccountDao {
 
     Connection connection = null;
 
+
     @Override
-    public long saveAccount(Account account) throws SQLException {
+    public void createTable() throws SQLException {
 
         connection = DriverManager.getConnection(jdbcURL);
 
@@ -21,6 +22,12 @@ public class AccountDaolmpl implements AccountDao {
         Statement statement = connection.createStatement();
         statement.execute(createSql);
         System.out.println("Created table accounts.");
+    }
+
+    @Override
+    public long saveAccount(Account account) throws SQLException {
+
+        connection = DriverManager.getConnection(jdbcURL);
 
         String insertSql = "Insert into accounts (accountId, accountName, country, balance, ccy) values ('" + account.getAccountId() + "','" + account.getAccountName() + "','" + account.getCountry() + "'" +
                 ",'" + account.getBalance() + "','" + account.getCcy() + "')";
@@ -36,7 +43,9 @@ public class AccountDaolmpl implements AccountDao {
 
     @Override
     public Account getAccount(long accountId) throws SQLException {
+
         connection = DriverManager.getConnection(jdbcURL);
+
         String selectSql = "select accountId, accountName, country, balance, ccy from accounts where accountId = '" + accountId + "'";
         Statement preparedStatement = connection.createStatement();
         ResultSet resultSet = preparedStatement.executeQuery(selectSql);
@@ -49,7 +58,9 @@ public class AccountDaolmpl implements AccountDao {
 
     @Override
     public void updateAccount(Account account) throws SQLException {
+
         connection = DriverManager.getConnection(jdbcURL);
+
         String updateSql = "update accounts set balance = '" + account.getBalance() + "' where accountId = '" + account.getAccountId() + "'";
         Statement preparedStatement = connection.createStatement();
         int rows = preparedStatement.executeUpdate(updateSql);
