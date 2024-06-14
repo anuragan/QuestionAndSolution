@@ -18,7 +18,7 @@ public class AccountDaolmpl implements AccountDao {
         connection = DriverManager.getConnection(jdbcURL);
 
         System.out.println("Connected to H2 in-memory database.");
-        String createSql = "Create table accounts (accountId int, accountName varchar(50), country varchar(30), balance varchar(50), ccy varchar(50)";
+        String createSql = "Create table accounts (accountId int, accountName varchar(50), country varchar(30), balance varchar(50), ccy varchar(50))";
         Statement statement = connection.createStatement();
         statement.execute(createSql);
         System.out.println("Created table accounts.");

@@ -22,7 +22,7 @@ public class Solution {
         ledgerBalance();
     }
 
-    private static void manipulatePingPong() throws SQLException {
+    private static void manipulatePingPong() {
         Object objThread = new Object();
 
         Thread ping = new Thread(new PingPong(objThread, "ping"));
